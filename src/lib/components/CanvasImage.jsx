@@ -1,11 +1,18 @@
 import React, { useRef, useEffect, useState } from 'react';
-import backgroundImage from './profile.jpg'
 
 const CanvasImage = (props) => {
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [brushStrokes, setBrushStrokes] = useState([]);
   const [currentStroke, setCurrentStroke] = useState([]);
+  const [backgroundImage, setBackgroundImage] = useState(null);
+  if (props.file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setBackgroundImage(e.target.result)
+    }
+    reader.readAsDataURL(props.file)
+  }
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -99,7 +106,7 @@ const CanvasImage = (props) => {
     <div>
       <canvas ref={canvasRef} {...props} style={{ border: '1px solid black' }} />
       <br />
-      <button onClick={handleDownload}>Download Image</button>
+      <button onClick={handleDownload}>Inpaint</button>
     </div>
   );
 };
