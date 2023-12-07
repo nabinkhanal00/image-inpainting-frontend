@@ -106,7 +106,7 @@ const CanvasImage = (props) => {
     <div>
       <canvas ref={canvasRef} {...props} style={{ border: '1px solid black' }} />
       <br />
-      <button onClick={handleDownload}>Inpaint</button>
+      <button onClick={handleDownload} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Inpaint</button>
     </div>
   );
 };
