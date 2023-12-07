@@ -13,6 +13,7 @@ function ThemeSwitcher() {
       themeToggleDarkIcon.classList.remove('hidden');
     }
 
+
     var themeToggleBtn = document.getElementById('theme-toggle');
 
     themeToggleBtn.addEventListener('click', function() {
