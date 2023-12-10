@@ -1,13 +1,17 @@
+import { join } from 'path';
+
+import { skeleton } from '@skeletonlabs/tw-plugin';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: 'media',
+export default {
+  darkMode: 'class',
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{html,js,svelte}",
+    join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte}')
   ],
   theme: {
     extend: {},
   },
-  plugins: [
-    require("@catppuccin/tailwindcss")
-  ],
+  plugins: [skeleton({ themes: { preset: [{ name: "hamlindigo", enhancements: true }] } })],
 }
+
