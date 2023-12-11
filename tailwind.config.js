@@ -12,6 +12,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [skeleton({ themes: { preset: [{ name: "hamlindigo", enhancements: true }] } })],
+  plugins: [skeleton({ themes: { preset: [{ name: "modern", enhancements: true }] } })],
+
 }
 
