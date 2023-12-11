@@ -12,7 +12,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [skeleton({ themes: { preset: [{ name: "modern", enhancements: true }] } })],
+  plugins: [skeleton({ themes: { preset: [{ name: "sahara", enhancements: true }] } })],
 
 }
 

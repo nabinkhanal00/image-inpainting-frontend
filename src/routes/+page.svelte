@@ -6,9 +6,9 @@
   import FileAnnotator from "$lib/components/FileAnnotator.svelte";
   import Results from "$lib/components/Results.svelte";
 
-  $: content =
+  let content =
     "Upload your image, scale, and use your cursor to drag your image to center. Uploaded image will be zoomed/cropped by default.";
-  $: title = "step one";
+  let title = "step one";
   let selected = false;
   let confirmed = false;
   let uploaded = false;
@@ -34,6 +34,9 @@
     outputWidth = width;
     outputHeight = height;
     confirmed = true;
+    title = "Step Two";
+    content =
+      "Use your cursor to mask out any portions of your image, and select Apply Model to view your results.";
   };
 </script>
 
