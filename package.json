@@ -13,11 +13,16 @@
 		"@skeletonlabs/tw-plugin": "^0.3.0",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.27.4",
+		"@svelteuidev/composables": "^0.15.4",
+		"@svelteuidev/core": "^0.15.4",
 		"autoprefixer": "^10.4.16",
 		"postcss": "^8.4.32",
 		"svelte": "^4.2.7",
 		"tailwindcss": "^3.3.6",
 		"vite": "^4.4.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"svelte-image-input": "^0.1.3"
+	}
 }

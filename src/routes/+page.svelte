@@ -9,24 +9,55 @@
   $: content =
     "Upload your image, scale, and use your cursor to drag your image to center. Uploaded image will be zoomed/cropped by default.";
   $: title = "step one";
-  let file;
+  let selected = false;
   let confirmed = false;
   let uploaded = false;
+  let width, height;
+  let img;
   let fileSelect = (fileList) => {
-    file = fileList[0];
-    console.log(file);
+    let file = fileList[0];
+    img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.onload = function () {
+      width = this.width;
+      height = this.height;
+      selected = true;
+    };
+  };
+  let changeImage = () => {
+    console.log(selected);
+    selected = false;
+  };
+  let outputImage, outputWidth, outputHeight;
+  let startMasking = (outputURL, width, height) => {
+    outputImage = outputURL;
+    outputWidth = width;
+    outputHeight = height;
+    confirmed = true;
   };
 </script>
 
 <div class="w-screen h-screen flex flex-col">
   <Header classes="" />
   <Title classes="w-3/4 self-center" {title} {content} />
-  {#if !file}
-    <FilePicker {fileSelect} classes="card p-4 w-3/4 self-center" />
+  {#if !selected}
+    <FilePicker {fileSelect} classes="w-3/4 self-center" />
   {:else if !confirmed}
-    <FileViewer />
+    <FileViewer
+      classes="w-3/4 self-center"
+      {width}
+      {height}
+      {img}
+      {changeImage}
+      nextStep={startMasking}
+    />
   {:else if !uploaded}
-    <FileAnnotator />
+    <FileAnnotator
+      url={outputImage}
+      height={outputHeight}
+      width={outputWidth}
+      classes="w-3/4 self-center"
+    />
   {:else}
     <Results />
   {/if}
