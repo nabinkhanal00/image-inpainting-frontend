@@ -25,15 +25,16 @@
     };
   };
   let changeImage = () => {
-    console.log(selected);
     selected = false;
   };
   let outputImage, outputWidth, outputHeight;
   let startMasking = (outputURL, width, height) => {
+    console.log("confirmed image:", outputURL);
     outputImage = outputURL;
     outputWidth = width;
     outputHeight = height;
     confirmed = true;
+
     title = "Step Two";
     content =
       "Use your cursor to mask out any portions of your image, and select Apply Model to view your results.";
@@ -60,6 +61,7 @@
       height={outputHeight}
       width={outputWidth}
       classes="w-3/4 self-center"
+      {changeImage}
     />
   {:else}
     <Results />

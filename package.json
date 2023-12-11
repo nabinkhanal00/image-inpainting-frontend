@@ -23,6 +23,5 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"svelte-image-input": "^0.1.3"
 	}
 }

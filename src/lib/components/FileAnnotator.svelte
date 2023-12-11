@@ -1,22 +1,31 @@
 <script>
-  import { onMount } from "svelte";
-  export let url, classes, width, height;
-
-  onMount(() => {
-    console.log(url);
-  });
+  import CanvasDraw from "./CanvasDraw.svelte";
+  export let url, classes, width, height, changeImage;
+  let brushRadius = 5;
+  let brushColor = "white";
+  const hideMask=()=>{}
+  const clearMask=()=>{}
+  const undoMask=()=>{}
+  const applyModel=()=>{}
 </script>
 
 <div class=" {classes}">
-  <div>
-    <img alt="confirmed" class="ml-auto mr-auto" src={url} {width} {height} />
-  </div>
-
-  <div class="flex justify-evenly py-5">
-    <button class="btn bg-transparent variant-soft-primary">Change Image</button>
-    <button class="btn ">Hide Mask</button>
-    <button class="btn ">Clear</button>
-    <button class="btn ">Undo</button>
-    <button class="btn variant-filled">Apply Model</button>
+  <CanvasDraw
+    {width}
+    {height}
+    classes="self-center"
+    imgSrc={url}
+    {brushColor}
+    {brushRadius}
+  />
+  <div class="flex justify-center py-5 px-0">
+    <button class="btn variant-ringed" on:click={changeImage}
+      >Change Image</button
+    >
+    <button class="btn variant-ringed" on:click={hideMask}>Hide Mask</button>
+    <button class="btn variant-ringed" on:click={clearMask}>Clear</button>
+    <button class="btn variant-ringed" on:click={undoMask}>Undo</button>
+    <button class="btn variant-filled" on:click={applyModel}>Apply Model</button
+    >
   </div>
 </div>
