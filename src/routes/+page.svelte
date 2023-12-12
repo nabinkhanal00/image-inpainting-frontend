@@ -26,6 +26,10 @@
   };
   let changeImage = () => {
     selected = false;
+    confirmed = false;
+    content =
+      "Upload your image, scale, and use your cursor to drag your image to center. Uploaded image will be zoomed/cropped by default.";
+    title = "step one";
   };
   let outputImage, outputWidth, outputHeight;
   let startMasking = (outputURL, width, height) => {

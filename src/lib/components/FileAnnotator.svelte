@@ -16,7 +16,37 @@
   const undoMask = () => {
     comp.undoMask();
   };
-  const applyModel = () => {};
+  const applyDoubleModel = ()=>{
+    
+    let [_, image,
+      mask] = comp.getImageData();
+
+    const downloadLinka = document.createElement("a");
+    const downloadLinkb = document.createElement("a");
+    document.body.appendChild(downloadLinka);
+    document.body.appendChild(downloadLinkb);
+
+    downloadLinka.href = image;
+    downloadLinka.target = "_self";
+    downloadLinka.download = "svelte-draw-export-1";
+    downloadLinka.click();
+    downloadLinkb.href = mask;
+    downloadLinkb.target = "_self";
+    downloadLinkb.download = "svelte-draw-export-2";
+    downloadLinkb.click();
+  }
+  const applySingleModel = () => {
+    let [data] = comp.getImageData();
+
+    const downloadLink = document.createElement("a");
+    document.body.appendChild(downloadLink);
+
+    downloadLink.href = data;
+    downloadLink.target = "_self";
+    downloadLink.download = "svelte-draw-export-" + +new Date();
+    downloadLink.click();
+
+  };
   let showMask = true;
   let slider;
   onMount(() => {
@@ -34,7 +64,6 @@
     imgSrc={url}
     {brushColor}
     bind:showMask
-
   />
 
   <div bind:this={slider} class=" ml-auto mr-auto py-2">
@@ -55,10 +84,14 @@
     <button class="btn variant-ringed" on:click={changeImage}
       >Change Image</button
     >
-    <button class="btn variant-ringed" on:click={toggleMask}>{showMask? "Hide Mask" : "Show Mask"}</button>
+    <button class="btn variant-ringed" on:click={toggleMask}
+      >{showMask ? "Hide Mask" : "Show Mask"}</button
+    >
     <button class="btn variant-ringed" on:click={clearMask}>Clear</button>
     <button class="btn variant-ringed" on:click={undoMask}>Undo</button>
-    <button class="btn variant-filled" on:click={applyModel}>Apply Model</button
+    <button class="btn variant-filled" on:click={applySingleModel}>Single</button
     >
+
+    <button class="btn variant-filled" on:click={applyDoubleModel}>Double</button>
   </div>
 </div>

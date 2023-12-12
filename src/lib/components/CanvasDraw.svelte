@@ -110,6 +110,20 @@
     lines = lines.slice(0, -1);
     redraw();
   };
+  export const getImageData= () => {
+    let newCanvas = document.createElement("canvas");
+    let _ctx = newCanvas.getContext("2d");
+
+    newCanvas.width = width;
+    newCanvas.height = height;
+
+    [imageCanvas, maskCanvas].forEach(function (n) {
+      _ctx.beginPath();
+      _ctx.drawImage(n, 0, 0, width, height);
+    });
+
+  return [newCanvas.toDataURL(), imageCanvas.toDataURL(), maskCanvas.toDataURL()];
+  };
   const redraw = () => {
     maskContext.clearRect(0, 0, width, height);
     lines.forEach((line) => {
