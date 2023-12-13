@@ -9,6 +9,7 @@
 
   let imageCanvas, imageContext;
   let maskCanvas, maskContext;
+  let pointerCanvas, pointerContext;
   let isDrawing = false;
   let isPressing = false;
   let mouseHasMoved = true;
@@ -27,6 +28,7 @@
   const handleStart = (e) => {
     e.preventDefault();
     isPressing = true;
+
     const { x, y } = getPointerPos(e);
     handlePointerMove(x, y);
   };
@@ -110,7 +112,7 @@
     lines = lines.slice(0, -1);
     redraw();
   };
-  export const getImageData= () => {
+  export const getImageData = () => {
     let newCanvas = document.createElement("canvas");
     let _ctx = newCanvas.getContext("2d");
 
@@ -122,7 +124,11 @@
       _ctx.drawImage(n, 0, 0, width, height);
     });
 
-  return [newCanvas.toDataURL(), imageCanvas.toDataURL(), maskCanvas.toDataURL()];
+    return [
+      newCanvas.toDataURL(),
+      imageCanvas.toDataURL(),
+      maskCanvas.toDataURL(),
+    ];
   };
   const redraw = () => {
     maskContext.clearRect(0, 0, width, height);
@@ -142,7 +148,32 @@
 
   onMount(() => {
     maskContext = maskCanvas.getContext("2d");
+    pointerContext = pointerCanvas.getContext("2d");
   });
+  const handleOuterStart = (e) => {
+    e.preventDefault();
+    const { x, y } = getPointerPos(e);
+    pointerContext.clearRect(0, 0, width, height);
+    pointerContext.strokeStyle = brushColor;
+    pointerContext.beginPath();
+    pointerContext.arc(x, y, brushRadius, 0, 2 * Math.PI);
+    pointerContext.stroke();
+    handleStart(e);
+  };
+  const handleOuterMove = (e) => {
+    e.preventDefault();
+    const { x, y } = getPointerPos(e);
+    pointerContext.clearRect(0, 0, width, height);
+    pointerContext.strokeStyle = brushColor;
+    pointerContext.beginPath();
+    pointerContext.arc(x, y, brushRadius/2, 0, 2 * Math.PI);
+    pointerContext.stroke();
+    handleMove(e);
+  };
+  const handleOuterEnd = (e) => {
+    handleEnd(e);
+    pointerContext.clearRect(0, 0, width, height);
+  };
 </script>
 
 <div id="canvasContainer">
@@ -161,6 +192,17 @@
     on:touchmove={handleMove}
     on:touchend={handleEnd}
     on:touchcancel={handleEnd}
+  />
+  <canvas
+    id="pointer"
+    bind:this={pointerCanvas}
+    {width}
+    {height}
+    on:mousedown={handleStart}
+    on:mouseenter={handleOuterMove}
+    on:mousemove={handleOuterMove}
+    on:mouseleave={handleOuterEnd}
+    on:mouseup={handleOuterEnd}
   />
 </div>
 
@@ -181,5 +223,13 @@
     margin-left: auto;
     margin-right: auto;
     z-index: 2;
+  }
+
+  #pointer {
+    align-self: center;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 3;
   }
 </style>
