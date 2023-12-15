@@ -27,6 +27,7 @@
   let changeImage = () => {
     selected = false;
     confirmed = false;
+    uploaded = false;
     content =
       "Upload your image, scale, and use your cursor to drag your image to center. Uploaded image will be zoomed/cropped by default.";
     title = "step one";
@@ -42,6 +43,19 @@
     title = "Step Two";
     content =
       "Use your cursor to mask out any portions of your image, and select Apply Model to view your results.";
+  };
+
+  let originalImage, maskImage, annotatedImage, finalWidth, finalHeight;
+
+  let handleUpload = (image, mask, annonated, width, height) => {
+    title = "Voila!";
+    content = "Inpainting Complete.";
+    uploaded = true;
+    originalImage = image;
+    maskImage = mask;
+    annotatedImage = annonated;
+    finalWidth = width;
+    finalHeight = height;
   };
 </script>
 
@@ -66,8 +80,19 @@
       width={outputWidth}
       classes="w-3/4 self-center"
       {changeImage}
+      {handleUpload}
     />
   {:else}
-    <Results />
+    <Results
+      url="http://localhost:8000/uploadfile/"
+      annotated={annotatedImage}
+      image={originalImage}
+      mask={maskImage}
+      annonated={annotatedImage}
+      width={finalWidth}
+      height={finalHeight}
+      {changeImage}
+      classes="w-3/4 self-center"
+    />
   {/if}
 </div>

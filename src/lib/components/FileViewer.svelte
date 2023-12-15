@@ -9,7 +9,7 @@
     let totalHeight = element.offsetHeight;
     let scale = width / height;
     let possibleWidth = (totalWidth * 3) / 4;
-    displayWidth = Math.min(possibleWidth, 500);
+    displayWidth = Math.min(width);
     displayHeight = displayWidth / scale;
   });
 

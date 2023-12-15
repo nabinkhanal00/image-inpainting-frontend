@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import CanvasDraw from "./CanvasDraw.svelte";
   import { RangeSlider } from "@skeletonlabs/skeleton";
-  export let url, classes, width, height, changeImage;
+  export let url, classes, width, height, changeImage, handleUpload;
   let brushRadius = 1;
   export let brushMax = 10;
   let brushColor = "white";
@@ -16,10 +16,8 @@
   const undoMask = () => {
     comp.undoMask();
   };
-  const applyDoubleModel = ()=>{
-    
-    let [_, image,
-      mask] = comp.getImageData();
+  const applyDoubleModel = () => {
+    let [_, image, mask] = comp.getImageData();
 
     const downloadLinka = document.createElement("a");
     const downloadLinkb = document.createElement("a");
@@ -34,7 +32,7 @@
     downloadLinkb.target = "_self";
     downloadLinkb.download = "svelte-draw-export-2";
     downloadLinkb.click();
-  }
+  };
   const applySingleModel = () => {
     let [data] = comp.getImageData();
 
@@ -45,7 +43,10 @@
     downloadLink.target = "_self";
     downloadLink.download = "svelte-draw-export-" + +new Date();
     downloadLink.click();
-
+  };
+  const applyModel = () => {
+    let [annotated, image, mask] = comp.getImageData();
+    handleUpload(image, mask, annotated, width, height);
   };
   let showMask = true;
   let slider;
@@ -89,9 +90,6 @@
     >
     <button class="btn variant-ringed" on:click={clearMask}>Clear</button>
     <button class="btn variant-ringed" on:click={undoMask}>Undo</button>
-    <button class="btn variant-filled" on:click={applySingleModel}>Single</button
-    >
-
-    <button class="btn variant-filled" on:click={applyDoubleModel}>Double</button>
+    <button class="btn variant-filled" on:click={applyModel}>Single</button>
   </div>
 </div>
