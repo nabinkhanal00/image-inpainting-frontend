@@ -90,6 +90,6 @@
     >
     <button class="btn variant-ringed" on:click={clearMask}>Clear</button>
     <button class="btn variant-ringed" on:click={undoMask}>Undo</button>
-    <button class="btn variant-filled" on:click={applyModel}>Single</button>
+    <button class="btn variant-filled" on:click={applyModel}>Apply Model</button>
   </div>
 </div>
