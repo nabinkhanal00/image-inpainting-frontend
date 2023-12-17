@@ -6,6 +6,7 @@
   import FileAnnotator from "$lib/components/FileAnnotator.svelte";
   import Results from "$lib/components/Results.svelte";
 
+  let url = `${import.meta.env.VITE_BACKEND_URL}/uploadfile/`;
   let content =
     "Upload your image, scale, and use your cursor to drag your image to center. Uploaded image will be zoomed/cropped by default.";
   let title = "step one";
@@ -84,7 +85,7 @@
     />
   {:else}
     <Results
-      url="http://localhost:8000/uploadfile/"
+      {url}
       annotated={annotatedImage}
       image={originalImage}
       mask={maskImage}
