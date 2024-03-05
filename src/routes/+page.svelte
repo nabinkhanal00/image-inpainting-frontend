@@ -1,5 +1,4 @@
 <script>
-  import Header from "$lib/components/Header.svelte";
   import Title from "$lib/components/Title.svelte";
   import FilePicker from "$lib/components/FilePicker.svelte";
   import FileViewer from "$lib/components/FileViewer.svelte";
@@ -61,7 +60,6 @@
 </script>
 
 <div class="w-screen h-screen flex flex-col">
-  <Header classes="" />
   <Title classes="w-3/4 self-center" {title} {content} />
   {#if !selected}
     <FilePicker {fileSelect} classes="w-3/4 self-center" />
