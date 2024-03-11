@@ -4,7 +4,6 @@
   let imageSrc;
   let fetchDone = false;
   onMount(async () => {
-    console.log(image, mask);
     const formData = new FormData();
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -38,10 +37,11 @@
 
 {#if fetchDone}
   <div class="flex {classes} justify-center">
-    <div>
+    <div class="flex flex-col">
       <img alt="annotated" src={annotated} />
+      <span> Annotated</span>
     </div>
-    <div class="ml-2">
+    <div class="flex flex-col ml-2">
       <img
         id="inpainted-image"
         alt="inpainted"
@@ -49,6 +49,11 @@
         {height}
         src={imageSrc}
       />
+      <span>Result</span>
+    </div>
+    <div class="flex flex-col ml-2">
+      <img id="inpainted-image" alt="inpainted" {width} {height} src={image} />
+      <span>Ground Truth</span>
     </div>
   </div>
 
