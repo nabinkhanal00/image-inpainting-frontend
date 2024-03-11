@@ -34,7 +34,6 @@
   };
   let outputImage, outputWidth, outputHeight;
   let startMasking = (outputURL, width, height) => {
-    console.log("confirmed image:", outputURL);
     outputImage = outputURL;
     outputWidth = width;
     outputHeight = height;
@@ -87,7 +86,6 @@
       annotated={annotatedImage}
       image={originalImage}
       mask={maskImage}
-      annonated={annotatedImage}
       width={finalWidth}
       height={finalHeight}
       {changeImage}
